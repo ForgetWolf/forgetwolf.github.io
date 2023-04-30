@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Forget&#39;s Blog</title>
+  
+  <subtitle>无失  故无得。  无悲  亦无喜。</subtitle>
+  <link href="https://github.com/ForgetWolf/atom.xml" rel="self"/>
+  
+  <link href="https://github.com/ForgetWolf/"/>
+  <updated>2023-01-14T11:31:51.000Z</updated>
+  <id>https://github.com/ForgetWolf/</id>
+  
+  <author>
+    <name>ForgetWolf233</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你好，世界！</title>
+    <link href="https://github.com/ForgetWolf/2023/01/14/Hello/"/>
+    <id>https://github.com/ForgetWolf/2023/01/14/Hello/</id>
+    <published>2023-01-14T11:31:51.000Z</published>
+    <updated>2023-01-14T11:31:51.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;折腾许久终于是搞了hexo，第一条也不知道写点啥&lt;/p&gt;
+&lt;p&gt;此Blog诞生日：2023.1.14，北京时间19:05分&lt;/p&gt;
+&lt;p&gt;By</summary>
+        
+      
+    
+    
+    
+    
+    <category term="随记" scheme="https://github.com/ForgetWolf/tags/%E9%9A%8F%E8%AE%B0/"/>
+    
+  </entry>
+  
+</feed>
