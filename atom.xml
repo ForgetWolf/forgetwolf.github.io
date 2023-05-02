@@ -6,7 +6,7 @@
   <link href="https://github.com/ForgetWolf/atom.xml" rel="self"/>
   
   <link href="https://github.com/ForgetWolf/"/>
-  <updated>2023-01-14T11:31:51.000Z</updated>
+  <updated>2023-05-01T18:21:06.000Z</updated>
   <id>https://github.com/ForgetWolf/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深夜随想：脚本与一键工具的利弊</title>
+    <link href="https://github.com/ForgetWolf/2023/05/02/Think%20of%20things/"/>
+    <id>https://github.com/ForgetWolf/2023/05/02/Think%20of%20things/</id>
+    <published>2023-05-01T18:21:06.000Z</published>
+    <updated>2023-05-01T18:21:06.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;自动与全自动刷机和脚本&amp;#x2F;工具箱，带来了方便同时降低门槛，点一下就能完成对比疯狂敲代码还担心出错更加简洁高效，但这是有代价的。&lt;/p&gt;
+&lt;p&gt;代价是得不到任何知识和能力的退化，以及鱼龙混杂。&lt;/p&gt;
+&lt;p&gt;例如，你会安装Arch 你会用parted分区</summary>
+        
+      
+    
+    
+    
+    
+    <category term="随记" scheme="https://github.com/ForgetWolf/tags/%E9%9A%8F%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>你好，世界！</title>
