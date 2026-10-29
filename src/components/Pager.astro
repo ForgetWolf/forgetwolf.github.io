@@ -1,0 +1,13 @@
+---
+interface Props { current: number; total: number; base?: string }
+const { current, total, base = '/' } = Astro.props;
+const path = (page: number) => page === 1 ? base : `${base}page/${page}/`;
+---
+<nav class="pagination no-margin-bottom" aria-label="分页">
+  <p>第 {current} 页 / 共 {total} 页</p>
+  <p>
+    {current > 1 && <span class="pre pagbuttons"><a rel="prev" href={path(current - 1)}>« 上一页</a></span>}
+    {' '}
+    {current < total && <span class="next pagbuttons"><a rel="next" href={path(current + 1)}>下一页 »</a></span>}
+  </p>
+</nav>

@@ -1,0 +1,35 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import PostList from '../../components/PostList.astro';
+import Pager from '../../components/Pager.astro';
+import { allPosts, terms, termPath, type Post } from '../../lib/posts';
+import { site } from '../../site';
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return (['tags', 'categories'] as const).flatMap(kind => {
+    const names = terms(posts, kind);
+    return [
+      { params: { taxonomy: kind, term: undefined }, props: { kind, names, posts, current: 1, total: 1 } },
+      ...names.flatMap(name => {
+        const selected = posts.filter(post => post.data[kind].includes(name));
+        const total = Math.max(1, Math.ceil(selected.length / site.pageSize));
+        return Array.from({ length: total }, (_, index) => ({
+          params: { taxonomy: kind, term: index ? `${name}/page/${index + 1}` : name },
+          props: { kind, name, names, posts: selected.slice(index * site.pageSize, (index + 1) * site.pageSize), current: index + 1, total },
+        }));
+      }),
+    ];
+  });
+}
+interface Props { kind: 'tags' | 'categories'; name?: string; names: string[]; posts: Post[]; current: number; total: number }
+const { kind, name, names, posts, current, total } = Astro.props;
+const label = kind === 'tags' ? '标签' : '分类';
+---
+<BlogLayout title={name ? `${label}：${name}` : label}>
+  <h1 class="post-title">{label}{name ? ` ${name}` : ''}</h1>
+  {name ? <><PostList posts={posts} /><Pager current={current} total={total} base={termPath(kind, name)} /></> :
+    <div class="archive"><ul class="listing">{names.map(term => <li class="listing-item"><div class="listing-post">
+      <p class="post-title"><a href={termPath(kind, term)}>{term}</a></p>
+      <span class="date meta-item">共 {posts.filter(post => post.data[kind].includes(term)).length} 篇文章</span>
+    </div></li>)}</ul>{names.length === 0 && <p>暂无{label}。</p>}</div>}
+</BlogLayout>

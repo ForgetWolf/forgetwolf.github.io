@@ -1,0 +1,29 @@
+{
+  "name": "forget-blog",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
+    "verify": "node scripts/verify-build.mjs",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/noto-serif-sc": "^5.3.1",
+    "astro": "^7.4.4",
+    "jquery": "3.7.1",
+    "sass": "^1.106.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/jquery": "^3.5.34",
+    "typescript": "^6.0.3"
+  }
+}

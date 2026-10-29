@@ -1,0 +1,6 @@
+{
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "verify": "deno run --allow-read scripts/verify-build.mjs"
+  }
+}

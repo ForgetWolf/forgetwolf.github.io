@@ -1,0 +1,29 @@
+---
+import Footer from './Footer.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { allPosts, terms } from '../lib/posts';
+import { site } from '../site';
+const posts = await allPosts();
+const links = [
+  { url: '/', name: '首页' }, { url: '/archives/', name: '归档' },
+  ...(terms(posts, 'categories').length ? [{ url: '/categories/', name: '分类' }] : []),
+  ...(terms(posts, 'tags').length ? [{ url: '/tags/', name: '标签' }] : []),
+  { url: '/about/', name: '关于我' },
+];
+const pathname = Astro.url.pathname;
+const active = (url: string) => url === '/' ? pathname === '/' || pathname.startsWith('/page/') : pathname.startsWith(url);
+---
+<aside id="side-bar" class="col-sm-3 col-xs-12 side-container">
+  <div class="vertical-text site-title">
+    <p class="site-title-small"><a class="a-title" href="/">{site.subtitle}</a></p>
+    <p class="site-title-large"><a class="a-title" href="/">{site.title}</a></p>
+  </div>
+  <br class="visible-lg visible-md visible-sm" />
+  <nav id="site-nav" class="site-title-links" aria-label="主导航">
+    <ul>
+      {links.map(link => <li><a href={link.url} class:list={{ current: active(link.url) }} aria-current={active(link.url) ? 'page' : undefined}>{link.name}</a></li>)}
+      <li class="soc social-links">{site.social.map(link => <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name} title={link.name}><i class={`fa fa-${link.icon}`} aria-hidden="true"></i><span class="sr-only">{link.name}</span>{' '}</a>)}<ThemeToggle /></li>
+    </ul>
+    <div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br" /><Footer /></div>
+  </nav>
+</aside>

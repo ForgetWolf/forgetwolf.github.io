@@ -1,0 +1,15 @@
+---
+import type { Post } from '../lib/posts';
+import { dateLabel, postPath } from '../lib/posts';
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+const years = [...new Set(posts.map(post => dateLabel(post.data.date).slice(0, 4)))];
+---
+<div class="archive"><ul class="list-with-title">
+  {years.map(year => <li class="listing-title"><h2 class="ar-year">{year}</h2><ul class="listing">
+    {posts.filter(post => dateLabel(post.data.date).startsWith(year)).map(post => <li class="listing-item"><div class="listing-post">
+      <p class="post-title"><a href={postPath(post)}>{post.data.title}</a></p>
+      <div class="post-time"><span class="ar-date">{dateLabel(post.data.date).slice(5)}</span></div>
+    </div></li>)}
+  </ul></li>)}
+</ul></div>

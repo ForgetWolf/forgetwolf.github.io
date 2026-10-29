@@ -1,0 +1,26 @@
+---
+import BlogLayout from '../layouts/BlogLayout.astro';
+import PostMeta from '../components/PostMeta.astro';
+import Pager from '../components/Pager.astro';
+import { allPosts, excerpt, postPath, type Post } from '../lib/posts';
+import { site } from '../site';
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  const total = Math.max(1, Math.ceil(posts.length / site.pageSize));
+  return Array.from({ length: total }, (_, index) => ({
+    params: { page: index ? `page/${index + 1}` : undefined },
+    props: { posts: posts.slice(index * site.pageSize, (index + 1) * site.pageSize), current: index + 1, total },
+  }));
+}
+interface Props { posts: Post[]; current: number; total: number }
+const { posts, current, total } = Astro.props;
+---
+<BlogLayout title={current > 1 ? `第 ${current} 页` : undefined}>
+  <h1 class="sr-only">{site.title}</h1>
+  {posts.map(post => <article class="post-container">
+    <h2 class="post-title"><a href={postPath(post)}>{post.data.title}</a></h2>
+    <PostMeta post={post} />
+    <p class="post-abstract">{excerpt(post)}</p>
+  </article>)}
+  <Pager current={current} total={total} />
+</BlogLayout>

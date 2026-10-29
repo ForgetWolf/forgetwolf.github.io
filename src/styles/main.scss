@@ -1,0 +1,99 @@
+@use './typography';
+
+// Existing customized light palette and original Typography dark palette.
+:root {
+  --background: #FCFAF2;
+  --foreground: #4C6E86;
+  --muted-foreground: #4f5751;
+  --theme-sun-display: block;
+  --theme-moon-display: none;
+  color-scheme: light;
+}
+@mixin dark-theme {
+    --background: #2e405b;
+    --foreground: #ffffff;
+    --muted-foreground: #e6e6e6;
+    --theme-sun-display: none;
+    --theme-moon-display: block;
+    color-scheme: dark;
+    body {
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi/P//Py8DpQCXISBxJlING4QaGEdDiQgAEGAAg8sST3LGZYoAAAAASUVORK5CYII=');
+    }
+    .astro-code, .astro-code span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+    }
+}
+// No attribute means auto. A saved desktop choice overrides the system.
+@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) { @include dark-theme; } }
+:root[data-theme='dark'] { @include dark-theme; }
+html, body { background-color: var(--background); color: var(--foreground); }
+html, body, span, p, h1, h2, h3, h4, h5, h6, a, button, time {
+  font-family: 'Gentium', 'Noto Serif SC', serif;
+  // Gentium's single-storey g; keep a in its default form.
+  font-feature-settings: 'ss12' 1;
+}
+button {
+  color: var(--foreground); background: transparent; border: 0;
+  border-bottom: 2px solid currentColor; padding: 0; cursor: pointer;
+}
+button:hover { color: var(--background); background: var(--foreground); }
+a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.skip-link { position: absolute; left: 1rem; top: -10rem; z-index: 10; }
+.skip-link:focus { top: 1rem; background: var(--background); }
+.prose { overflow-wrap: anywhere; }
+.prose > :first-child { margin-top: 0; }
+.prose p { margin-bottom: 1em; }
+.prose h1, .prose h2, .prose h3 { line-height: 1.4; margin-top: 1.5em; }
+.prose blockquote { border-left: 1px solid currentColor; font-size: inherit; }
+.prose table { width: 100%; border-bottom: 1px solid currentColor; }
+.prose td, .prose th { text-align: center; padding: 3px; }
+.prose hr { border-top-color: currentColor; }
+.post-pagination { display: block; }
+.post-pagination p { margin-bottom: 1em; }
+.site-title-links { padding: 0; }
+.site-title .site-title-large, .site-title .site-title-small { line-height: 1.1; }
+.ar-year { font-size: 18px; font-weight: bold; }
+code, pre, pre span {
+  font-family: Monaco, Menlo, 'Cascadia Code', Consolas, monospace;
+  font-feature-settings: normal;
+}
+pre.astro-code { padding: 1em; overflow-x: auto; line-height: 1.6; font-size: 14px; }
+pre.astro-code code { counter-reset: line; display: block; min-width: max-content; }
+pre.astro-code .line { counter-increment: line; }
+pre.astro-code .line::before {
+  content: counter(line); display: inline-block; width: 3ch;
+  margin-right: 1.5ch; text-align: right; opacity: .5; user-select: none;
+}
+.social-links { position: relative; width: max-content; }
+#theme-toggle {
+  position: absolute; left: calc(100% + 18px); top: -18px;
+  width: 34px; height: 34px; padding: 6px; border: 0;
+  color: var(--foreground); background: transparent; border-radius: 3px;
+}
+#theme-toggle:hover { background: color-mix(in srgb, var(--foreground) 10%, transparent); }
+#theme-toggle[hidden] { display: none; }
+#theme-toggle svg path { fill: none; }
+.theme-sun { display: var(--theme-sun-display); }
+.theme-moon { display: var(--theme-moon-display); }
+.theme-auto { position: absolute; right: 0; bottom: -1px; font-size: 10px; line-height: 1; font-weight: bold; }
+:root[data-theme] .theme-auto { display: none; }
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  #theme-toggle { display: none !important; }
+  .social-links { width: auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .main-container { animation: fadein-top .6s ease-out; }
+  .side-container { animation: fadein-right .6s ease-out; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (max-width: 768px), (max-height: 600px) {
+  .side-container { float: none; right: auto; }
+  .main-container { float: none; width: 100%; }
+  .site-title-links { position: static; }
+  .site-nav-footer { display: none !important; }
+  .site-bottom-footer { display: block !important; }
+  .site-title-links ul li { display: inline-block; }
+}

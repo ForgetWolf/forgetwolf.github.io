@@ -1,0 +1,35 @@
+---
+import { render } from 'astro:content';
+import BlogLayout from '../../../../layouts/BlogLayout.astro';
+import PostMeta from '../../../../components/PostMeta.astro';
+import { allPosts, dateLabel, excerpt, postPath, timestamp, type Post } from '../../../../lib/posts';
+import { site } from '../../../../site';
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return posts.map((post, index) => {
+    const [year, month, day] = dateLabel(post.data.date).split('-');
+    return { params: { year, month, day, slug: encodeURI(post.data.slug) }, props: { post, newer: posts[index - 1], older: posts[index + 1] } };
+  });
+}
+interface Props { post: Post; newer?: Post; older?: Post }
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+const url = new URL(postPath(post), site.url).href;
+const twitter = `https://twitter.com/intent/tweet?${new URLSearchParams({ url, text: post.data.title })}`;
+const weibo = `https://service.weibo.com/share/share.php?${new URLSearchParams({ url, title: post.data.title })}`;
+---
+<BlogLayout title={post.data.title} description={excerpt(post)} article published={new Date(timestamp(post.data.date)).toISOString()}>
+  <article class="post-container post-page">
+    <h1 class="post-title">{post.data.title}</h1>
+    <PostMeta post={post} />
+    <div class="post-abstract prose"><Content /></div>
+  </article>
+  <div class="share">分享： <button id="copy-link" type="button" aria-live="polite">复制链接</button>{' '}
+    <a href={weibo} target="_blank" rel="noopener noreferrer" aria-label="分享到微博"><i class="fa fa-weibo" aria-hidden="true"></i></a>{' '}
+    <a href={twitter} target="_blank" rel="noopener noreferrer" aria-label="分享到 Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  </div>
+  <nav class="pagination post-pagination" aria-label="相邻文章">
+    {newer && <p><a href={postPath(newer)} rel="prev">« 上一篇：{newer.data.title}</a></p>}
+    {older && <p><a href={postPath(older)} rel="next">下一篇：{older.data.title} »</a></p>}
+  </nav>
+</BlogLayout>

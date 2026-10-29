@@ -1,0 +1,19 @@
+/* Gentium 7.000, SIL International. Full webfonts retain the ss12 g alternate.
+ * Source and checksum: see THIRD_PARTY_NOTICES.md. License: /licenses/Gentium-OFL.txt.
+ */
+@font-face {
+  font-family: 'Gentium'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('/fonts/gentium/Gentium-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Gentium'; font-style: italic; font-weight: 400; font-display: swap;
+  src: url('/fonts/gentium/Gentium-Italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Gentium'; font-style: normal; font-weight: 700; font-display: swap;
+  src: url('/fonts/gentium/Gentium-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Gentium'; font-style: italic; font-weight: 700; font-display: swap;
+  src: url('/fonts/gentium/Gentium-BoldItalic.woff2') format('woff2');
+}
