@@ -52,6 +52,14 @@
 
 构建产物位于 `dist/`，包含 GitHub Pages 使用的 `.nojekyll`。将 **dist 的内容** 部署至静态托管服务即可；源码仓库和部署产物应分别管理。
 
+### GitHub Pages 自动部署
+
+仓库自带 `.github/workflows/deploy.yml`：向 main 推送后，使用 Deno 安装锁定的依赖、检查和构建 Astro，再将 dist 上传至 Pages。也可从 Actions 手动运行 **Deploy Astro to GitHub Pages**。
+
+在仓库 Settings → Pages → Build and deployment 中将 Source 设为 **GitHub Actions**。此设置本身不会把 Jekyll 构建转换为 Astro；若之前创建过使用 `actions/jekyll-build-pages` 的工作流，请删除或禁用那个旧工作流，避免重复部署。
+
+仓库根目录应直接包含 package.json、deno.lock、src 和 .github，而不是再包一层 astro-blog 目录。无需提交 dist，也不需要配置个人访问令牌。
+
 `node_modules/`、`dist/`、`.astro/`、验证截图、日志、环境变量及本地迁移备份均由 `.gitignore` 排除。不要将本地备份或凭据放入 `public/`，该目录的内容会直接发布。示例环境变量文件可使用 `.env.example`，其中只填写占位值。
 ~~也可用直接扔给AI让AI去做~~
 
