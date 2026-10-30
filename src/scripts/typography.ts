@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import './theme';
+import './random';
 
 // Keep the theme's existing sidebar sizing behavior, including short screens.
 function updateSidebar() {

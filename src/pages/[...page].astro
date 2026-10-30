@@ -4,6 +4,7 @@ import PostMeta from '../components/PostMeta.astro';
 import Pager from '../components/Pager.astro';
 import { allPosts, excerpt, postPath, type Post } from '../lib/posts';
 import { site } from '../site';
+import { websiteData } from '../lib/structured-data';
 export async function getStaticPaths() {
   const posts = await allPosts();
   const total = Math.max(1, Math.ceil(posts.length / site.pageSize));
@@ -15,7 +16,7 @@ export async function getStaticPaths() {
 interface Props { posts: Post[]; current: number; total: number }
 const { posts, current, total } = Astro.props;
 ---
-<BlogLayout title={current > 1 ? `第 ${current} 页` : undefined}>
+<BlogLayout title={current > 1 ? `第 ${current} 页` : undefined} structuredData={current === 1 ? websiteData() : undefined}>
   <h1 class="sr-only">{site.title}</h1>
   {posts.map(post => <article class="post-container">
     <h2 class="post-title"><a href={postPath(post)}>{post.data.title}</a></h2>

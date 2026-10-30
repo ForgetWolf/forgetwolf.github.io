@@ -1,5 +1,9 @@
 @use './typography';
 
+// Font Awesome font glyphs converted to SVG, retaining their em-based dimensions.
+.fa-svg { display: inline-block; vertical-align: -.125em; overflow: visible; }
+.fa-svg path { fill: currentColor; }
+
 // Existing customized light palette and original Typography dark palette.
 :root {
   --background: #FCFAF2;

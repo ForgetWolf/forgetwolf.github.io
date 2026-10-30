@@ -10,5 +10,5 @@ export const site = {
     { name: 'GitHub', url: 'https://github.com/ForgetWolf', icon: 'github' },
     { name: 'Twitter', url: 'https://twitter.com/ForgetWolf233', icon: 'twitter' },
     { name: '订阅博客（Atom）', url: '/atom.xml', icon: 'rss' },
-  ],
+  ] as const,
 };

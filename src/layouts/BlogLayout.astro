@@ -1,15 +1,18 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
+import StructuredData from '../components/StructuredData.astro';
+import type { StructuredData as StructuredDataValue } from '../lib/structured-data';
 import { site } from '../site';
 import '../styles/fonts.css';
 import '@fontsource/noto-serif-sc/400.css';
 import '@fontsource/noto-serif-sc/700.css';
 import '../styles/vendor/bootstrap.min.css';
-import '../styles/vendor/font-awesome.min.css';
+// Former Font Awesome import; icons now use converted inline SVG.
+// import '../styles/vendor/font-awesome.min.css';
 import '../styles/main.scss';
-interface Props { title?: string; description?: string; article?: boolean; published?: string }
-const { title, description = site.description, article = false, published } = Astro.props;
+interface Props { title?: string; description?: string; article?: boolean; published?: string; noindex?: boolean; structuredData?: StructuredDataValue }
+const { title, description = site.description, article = false, published, noindex = false, structuredData } = Astro.props;
 const fullTitle = title ? `${title} · ${site.title}` : site.title;
 const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname, site.url);
 ---
@@ -31,8 +34,11 @@ const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.u
     <title>{fullTitle}</title>
     <meta name="author" content={site.author} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/x-icon" sizes="16x16 24x24 32x32 48x48 64x64 128x128 256x256" href="/favicon.ico" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    {structuredData && !noindex && <StructuredData data={structuredData} />}
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48 64x64" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/images/favicon.png" />
     <link rel="alternate" type="application/atom+xml" title={site.title} href="/atom.xml" />

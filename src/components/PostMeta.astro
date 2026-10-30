@@ -1,12 +1,14 @@
 ---
 import { dateLabel, timestamp, termPath, type Post } from '../lib/posts';
+import Icon from './Icon.astro';
 interface Props { post: Post }
 const { post } = Astro.props;
 ---
 <p class="post-meta">
   <span class="date meta-item">发布于&nbsp;<time datetime={new Date(timestamp(post.data.date)).toISOString()}>{dateLabel(post.data.date)}</time></span>
   {(['categories', 'tags'] as const).map(kind => post.data[kind].length > 0 && <span class="meta-item">
-    <i class={`fa fa-${kind === 'tags' ? 'tag' : 'folder'}`} aria-hidden="true"></i>{' '}
+    {/* 原 Font Awesome 标签／文件夹图标，现转换为 SVG。 */}
+    <Icon name={kind === 'tags' ? 'tag' : 'folder'} />{' '}
     {post.data[kind].map(name => <><a class="a-tag" href={termPath(kind, name)}>{name}</a>{' '}</>)}
   </span>)}
 </p>

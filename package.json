@@ -16,7 +16,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "@fontsource/noto-serif-sc": "^5.3.1",
+    "@js-temporal/polyfill": "^0.5.1",
     "astro": "^7.4.4",
     "jquery": "3.7.1",
     "sass": "^1.106.1"

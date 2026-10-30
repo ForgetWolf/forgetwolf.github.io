@@ -1,6 +1,7 @@
 ---
 import Footer from './Footer.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import Icon from './Icon.astro';
 import { allPosts, terms } from '../lib/posts';
 import { site } from '../site';
 const posts = await allPosts();
@@ -8,6 +9,7 @@ const links = [
   { url: '/', name: '首页' }, { url: '/archives/', name: '归档' },
   ...(terms(posts, 'categories').length ? [{ url: '/categories/', name: '分类' }] : []),
   ...(terms(posts, 'tags').length ? [{ url: '/tags/', name: '标签' }] : []),
+  { url: '/random/', name: '偏航' },
   { url: '/about/', name: '关于我' },
 ];
 const pathname = Astro.url.pathname;
@@ -21,8 +23,9 @@ const active = (url: string) => url === '/' ? pathname === '/' || pathname.start
   <br class="visible-lg visible-md visible-sm" />
   <nav id="site-nav" class="site-title-links" aria-label="主导航">
     <ul>
-      {links.map(link => <li><a href={link.url} class:list={{ current: active(link.url) }} aria-current={active(link.url) ? 'page' : undefined}>{link.name}</a></li>)}
-      <li class="soc social-links">{site.social.map(link => <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name} title={link.name}><i class={`fa fa-${link.icon}`} aria-hidden="true"></i><span class="sr-only">{link.name}</span>{' '}</a>)}<ThemeToggle /></li>
+      {links.map(link => <li><a href={link.url} data-random-link={link.url === '/random/' ? true : undefined} title={link.url === '/random/' ? '随机阅读另一篇文章' : undefined} class:list={{ current: active(link.url) }} aria-current={active(link.url) ? 'page' : undefined}>{link.name}</a></li>)}
+      {/* 原 Font Awesome 社交图标，现转换为 SVG；原实现：i.fa.fa-{icon} */}
+      <li class="soc social-links">{site.social.map(link => <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name} title={link.name}><Icon name={link.icon} /><span class="sr-only">{link.name}</span>{' '}</a>)}<ThemeToggle /></li>
     </ul>
     <div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br" /><Footer /></div>
   </nav>

@@ -2,7 +2,9 @@
   "version": "5",
   "specifiers": {
     "npm:@astrojs/check@~0.9.12": "0.9.12_typescript@6.0.3",
+    "npm:@astrojs/sitemap@^3.7.4": "3.7.4",
     "npm:@fontsource/noto-serif-sc@^5.3.1": "5.3.1",
+    "npm:@js-temporal/polyfill@~0.5.1": "0.5.1",
     "npm:@types/jquery@^3.5.34": "3.5.34",
     "npm:astro@^7.4.4": "7.4.4_sass@1.106.1",
     "npm:jquery@3.7.1": "3.7.1",
@@ -152,6 +154,13 @@
       "integrity": "sha512-jMrUEpFDarDO1KWPvVc9eSa8DSfwBlwEOHwX+8zvZQpiqXRGDxFnOXHsYqV6DP7w+0qIgTr98gS1GdQlm8ypWg==",
       "dependencies": [
         "prismjs"
+      ]
+    },
+    "@astrojs/sitemap@3.7.4": {
+      "integrity": "sha512-LbKNC24bdUWcQf/pThB6qLlSqHojxGjZDURIzFocY8rlWnAn2t74nnhnK6S5x0NHriHoAduLEpVjRykmeGiVvA==",
+      "dependencies": [
+        "sitemap",
+        "zod"
       ]
     },
     "@astrojs/telemetry@3.4.2": {
@@ -506,6 +515,12 @@
     "@jridgewell/sourcemap-codec@1.6.0": {
       "integrity": "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw=="
     },
+    "@js-temporal/polyfill@0.5.1": {
+      "integrity": "sha512-hloP58zRVCRSpgDxmqCWJNlizAlUgJFqG2ypq79DCvyv9tHjRYMDOcPFjzfl/A1/YxDvRCZz8wvZvmapQnKwFQ==",
+      "dependencies": [
+        "jsbi"
+      ]
+    },
     "@napi-rs/wasm-runtime@1.2.4_@emnapi+core@1.11.3_@emnapi+runtime@1.11.3": {
       "integrity": "sha512-AJxoUD2/15ESHbvpcyjU274nsAPLuOtPHCk0vKJM5pj//Fg/B1FXNWjPnXTT9PymCYYiHo4zPj0ZomXBKhoy7g==",
       "dependencies": [
@@ -790,6 +805,18 @@
         "@types/unist"
       ]
     },
+    "@types/node@24.19.2": {
+      "integrity": "sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==",
+      "dependencies": [
+        "undici-types"
+      ]
+    },
+    "@types/sax@1.2.7": {
+      "integrity": "sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==",
+      "dependencies": [
+        "@types/node"
+      ]
+    },
     "@types/sizzle@2.3.10": {
       "integrity": "sha512-TC0dmN0K8YcWEAEfiPi5gJP14eJe30TTGjkvek3iM/1NdHHsdCA/Td6GvNndMOo/iSnIsZ4HuuhrYPDAmbxzww=="
     },
@@ -919,6 +946,9 @@
         "normalize-path",
         "picomatch@2.3.2"
       ]
+    },
+    "arg@5.0.2": {
+      "integrity": "sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg=="
     },
     "aria-query@5.3.2": {
       "integrity": "sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw=="
@@ -1290,6 +1320,9 @@
     },
     "jquery@3.7.1": {
       "integrity": "sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg=="
+    },
+    "jsbi@4.3.2": {
+      "integrity": "sha512-9fqMSQbhJykSeii05nxKl4m6Eqn2P6rOlYiS+C5Dr/HPIU/7yZxu5qzbs40tgaFORiw2Amd0mirjxatXYMkIew=="
     },
     "json-schema-traverse@1.0.0": {
       "integrity": "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug=="
@@ -1708,6 +1741,16 @@
     "sisteransi@1.0.5": {
       "integrity": "sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg=="
     },
+    "sitemap@9.0.1": {
+      "integrity": "sha512-S6hzjGJSG3d6if0YoF5kTyeRJvia6FSTBroE5fQ0bu1QNxyJqhhinfUsXi9fH3MgtXODWvwo2BDyQSnhPQ88uQ==",
+      "dependencies": [
+        "@types/node",
+        "@types/sax",
+        "arg",
+        "sax"
+      ],
+      "bin": true
+    },
     "smol-toml@1.9.1": {
       "integrity": "sha512-j7WyPdf0CJoutMzMoPLF/bVXHtKZIT9Rb4eGeEbWw8X2t5oirjPgpL+OpaENZrILYaXqYwnVH+qgUwVbl+pUJQ=="
     },
@@ -1810,6 +1853,9 @@
     },
     "uncrypto@0.1.3": {
       "integrity": "sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q=="
+    },
+    "undici-types@7.24.6": {
+      "integrity": "sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg=="
     },
     "undici@8.12.3": {
       "integrity": "sha512-+fdndUTwBP86cVjihTp21hZHo7d6oj1c/47XPA3lL8mM0XHs+C4EkcjmgRsFnFk2f/UONGDy9ItBItmXsLOQHw=="
@@ -2133,7 +2179,9 @@
     "packageJson": {
       "dependencies": [
         "npm:@astrojs/check@~0.9.12",
+        "npm:@astrojs/sitemap@^3.7.4",
         "npm:@fontsource/noto-serif-sc@^5.3.1",
+        "npm:@js-temporal/polyfill@~0.5.1",
         "npm:@types/jquery@^3.5.34",
         "npm:astro@^7.4.4",
         "npm:jquery@3.7.1",

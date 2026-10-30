@@ -1,0 +1,11 @@
+---
+// Former Font Awesome 4.7 font icons, converted to inline SVG outlines.
+// Original source/license: public/licenses/Font-Awesome-OFL.txt.
+import paths from '../lib/icon-paths.json';
+interface Props { name: keyof typeof paths }
+const { name } = Astro.props;
+const glyph = paths[name];
+---
+<svg class="fa-svg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${glyph.width} 1792`} width={`${glyph.width / 1792}em`} height="1em" aria-hidden="true" focusable="false">
+  <path transform="translate(0 1536) scale(1 -1)" d={glyph.path} />
+</svg>

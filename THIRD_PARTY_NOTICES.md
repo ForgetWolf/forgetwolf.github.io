@@ -4,7 +4,7 @@ This Astro port is derived from [Typography](https://github.com/sumimakito/hexo-
 
 Bootstrap 3.3.7 CSS: MIT, Copyright 2011–2016 Twitter, Inc. Original license header retained; full license: `public/licenses/Bootstrap-MIT.txt`. Unused Glyphicons font-face removed; the site uses Font Awesome. Old Bootstrap JavaScript is preserved only in local legacy backups and is not loaded.
 
-Font Awesome 4.7.0: fonts under SIL OFL 1.1, CSS under MIT. Original CSS license header retained. See https://fontawesome.com/v4/license/ .
+Font Awesome 4.7.0 by Dave Gandy: the six used font glyphs were extracted as SVG outlines in src/lib/icon-paths.json and rendered by Icon.astro. The original font was under SIL OFL 1.1; its license is preserved in public/licenses/Font-Awesome-OFL.txt. The full CSS/font files are no longer shipped; the previous import is retained as a comment and the local legacy backup retains the original files. See https://fontawesome.com/v4/license/ .
 
 jQuery 3.7.1: MIT, Copyright OpenJS Foundation and other contributors. Full license: `public/licenses/jQuery-MIT.txt`.
 

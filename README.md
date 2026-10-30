@@ -5,7 +5,10 @@
 
 ## 特性
 
+字体图标仅保留实际使用的 Font Awesome SVG 轮廓，源码使用处标明了转换来源，原 CSS 引用以注释保留。favicon 使用优化的 PNG 和含 16/32/48/64px 的 ICO；未压缩原件仅保存在本地 legacy 备份中。
+
 - Markdown 文章、标签、分类、分页与年月归档。
+- 「偏航」随机阅读：构建时生成独立文章索引，点击时才加载，自动排除当前文章和草稿。
 - 保留原 Hexo 的文章地址：`/年/月/日/slug/`。
 - 按照个人喜好，中文 Noto Serif SC，英文 Gentium，使用单层小写 g；字体本地托管。
 - 代码高亮切换为Astro 内置 Shiki 代码高亮与行号，支持浅深两套样式。
@@ -30,7 +33,21 @@
 
 ## 写作与配置
 
+### 搜索引擎元数据
+
+构建时由 `@astrojs/sitemap` 生成 sitemap-index.xml。收录首页、关于页、公开文章、归档总览、有内容的标签／分类入口及详情；排除随机入口、404、空分类、年月归档和列表分页。策略位于 scripts/sitemap-policy.mjs，依据实际生成路由判断分类是否有内容，不使用构建时间伪造更新日期。
+
+robots.txt 允许抓取并声明 sitemap 地址；随机页通过 noindex 控制收录，不在 robots 中阻止抓取。站点域名统一来自 src/site.ts，同时供 Astro 配置与 robots 使用。
+
+JSON-LD 由 src/lib/structured-data.ts 生成：首页为 WebSite，文章为 BlogPosting，关于页为 ProfilePage 与 Person。统一作者标识，仅使用已公开的名字与社交账号；修改时间和摘要只在手动填写 updated／desc 时输出，不添加图片。序列化会转义 HTML 敏感字符，避免标题破坏 script 标签。
+
+日期校验位于独立的 `src/lib/article-date.ts`，采用 Temporal 标准 API（通过 polyfill 提供），不依赖 Astro。支持 `YYYY-MM-DD`、旧格式 `YYYY-MM-DD HH:mm:ss`、ISO 8601 的 `Z` 或时区偏移，以及已解析的 Date 对象。无时区字符串按 `src/site.ts` 的 timezone 解释，显式偏移优先；非法日期和夏令时歧义会报错，歧义时请填写显式偏移。建议日期加引号，避免不同引擎的 YAML 解析器自行改变语义；迁移时推荐使用带偏移的 ISO 日期。
+
+摘要只读取手写 `desc`，缺少时返回空字符串，不从正文生成。旧自动摘要及改进参考保存在 `src/lib/summary.ts` 的注释中，默认不执行。「偏航」入口页使用 `noindex, follow`，文章仍可正常收录。
+
 文章放在 `src/content/posts/`，关于页位于 `src/content/about.md`。`slug` 决定文章地址，迁移文章需保留原有大小写与字符，以免旧链接失效。`draft: true` 的文章不会发布。
+
+`slug` 填写未编码的单个目录名，中文、内部空格、`&` 等字符由程序处理。为兼容 Astro 静态输出及 Windows/GitHub Pages，禁止 `#`、`?`、`%`、路径分隔符和文件名保留字符，不允许尾随空格／句点或 Windows 保留设备名；构建时明确报错，不自动改名。不要手动填写 `%20` 等 URL 编码。
 
 | 文件 | 用途 |
 | --- | --- |
