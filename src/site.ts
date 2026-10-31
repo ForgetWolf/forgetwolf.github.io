@@ -3,7 +3,7 @@ export const site = {
   subtitle: '无失  故无得。无悲  亦无喜。',
   description: 'Something About Dairasy',
   author: 'ForgetWolf233',
-  url: 'https://forgetwolf.github.io',
+  url: 'https://blog.forgetwolf.net',
   timezone: 'Asia/Taipei',
   pageSize: 10,
   social: [

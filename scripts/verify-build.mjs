@@ -1,6 +1,8 @@
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve, relative } from 'node:path';
 import assert from 'node:assert/strict';
+import { site } from '../src/site.ts';
+const origin = new URL(site.url).origin;
 const dist = resolve('dist');
 async function files(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -21,8 +23,8 @@ for (const file of htmlFiles) {
   assert(!html.includes('legacy/'), `Backup published: ${pathname}`);
   assert(!html.includes('fonts.googleapis.com'), `External font request: ${pathname}`);
   for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const url = new URL(match[1].replaceAll('&amp;', '&'), 'https://forgetwolf.github.io' + pathname);
-    if (url.origin !== 'https://forgetwolf.github.io') continue;
+    const url = new URL(match[1].replaceAll('&amp;', '&'), origin + pathname);
+    if (url.origin !== origin) continue;
     assert(await localTarget(url), `Broken local link: ${pathname} -> ${url.pathname}`);
     links++;
   }

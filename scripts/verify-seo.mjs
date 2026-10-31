@@ -1,7 +1,8 @@
 import { readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
-const origin = 'https://forgetwolf.github.io';
+import { site } from '../src/site.ts';
+const origin = new URL(site.url).origin;
 const decode = value => value.replaceAll('&amp;', '&').replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&quot;', '"').replaceAll('&apos;', "'");
 const read = path => readFile(resolve('dist', path), 'utf8');
 const robots = await read('robots.txt');

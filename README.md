@@ -57,7 +57,7 @@ JSON-LD 由 src/lib/structured-data.ts 生成：首页为 WebSite，文章为 Bl
 | `src/styles/main.scss` | 配色、响应式布局、代码块与按钮样式 |
 | `src/styles/fonts.css` | Gentium 字体声明 |
 
-修改域名时，同时更新 `src/site.ts` 和 `astro.config.mjs` 中的地址。
+正式地址为 https://blog.forgetwolf.net/ 。修改域名时只需更新 `src/site.ts` 的 url；Astro 配置、canonical、订阅、sitemap、robots 和 JSON-LD 均从这里读取。当前自定义域名部署在根目录，不配置 `/Blog/` base。
 
 ## 配色切换逻辑
 
@@ -70,6 +70,8 @@ JSON-LD 由 src/lib/structured-data.ts 生成：首页为 WebSite，文章为 Bl
 构建产物位于 `dist/`，包含 GitHub Pages 使用的 `.nojekyll`。将 **dist 的内容** 部署至静态托管服务即可；源码仓库和部署产物应分别管理。
 
 ### GitHub Pages 自动部署
+
+源码仓库为 [ForgetWolf/Blog](https://github.com/ForgetWolf/Blog)，本地位于 `D:\Blog\astro-blog`（与父目录 Hexo 仓库不同）。Git origin 使用 SSH：`git@github.com:ForgetWolf/Blog.git`。在该仓库 Pages 设置中绑定 `blog.forgetwolf.net`；HTTP 跳转 HTTPS 由 GitHub／Cloudflare 的托管设置控制，静态源码中的 https 地址不等于已启用服务端跳转。
 
 仓库自带 `.github/workflows/deploy.yml`：向 main 推送后，使用 Deno 安装锁定的依赖、检查和构建 Astro，再将 dist 上传至 Pages。也可从 Actions 手动运行 **Deploy Astro to GitHub Pages**。
 
